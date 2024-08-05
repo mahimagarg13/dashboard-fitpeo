@@ -136,8 +136,8 @@ const Feedback = () => {
             <ListItemText
               primary={feedback.customer}
               secondary={`${feedback.feedback} - ${"⭐".repeat(feedback.rating)}`}
-              style={{ color: "white" }}
-            />
+              primaryTypographyProps={{ style: { color: "white" } }}
+              secondaryTypographyProps={{ style: { color: "darkgray" } }}            />
           </ListItem>
         ))}
       </List>

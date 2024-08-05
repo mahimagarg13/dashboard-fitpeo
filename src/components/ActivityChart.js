@@ -1,66 +1,29 @@
-import React, { useRef, useEffect } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-// Register the components
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+const data = [
+  { name: '5', uv: 10000 },
+  { name: '9', uv: 5000 },
+  { name: '11', uv: 6000 },
+  { name: '13', uv: 7000 },
+  { name: '15', uv: 2000 },
+  { name: '17', uv: 8000 },
+  { name: '19', uv: 9000 },
+  { name: '21', uv: 12000 },
+  { name: '23', uv: 8000 },
+  { name: '25', uv: 10000 },
+  { name: '27', uv: 6000 },
+];
 
 const ActivityChart = () => {
-  const chartRef = useRef(null);
-
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        label: 'My First dataset',
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(75,192,192,0.6)',
-        hoverBorderColor: 'rgba(75,192,192,1)',
-        data: [65, 59, 80, 81, 56, 55, 40],
-      },
-    ],
-  };
-
-  
-  useEffect(() => {
-    const chartInstance = chartRef.current;
-
-    return () => {
-      if (chartInstance) {
-        chartInstance.destroy();
-      }
-    };
-  }, []);
-
-  const options = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      x: {
-        type: 'category',
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 10,
-        },
-      },
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  const isValidData = data && data.labels && data.datasets;
-
-  if (!isValidData) {
-    return <div>Loading...</div>; // or some other fallback UI
-  }
-
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <Line ref={chartRef} data={data} options={options} />
-    </div>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={data}>
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Bar dataKey="uv" fill="#8884d8" barSize={30}  radius={[40, 40, 40, 40]}/>
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 
